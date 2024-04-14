@@ -111,31 +111,79 @@ function getParentNode (rootNode, target) {
 
 function inOrderPredecessor (rootNode, target) {
   // Your code here
-  
+  let curr = rootNode;
+  let stack = [];
+  let predecessor = null;
+
+  while (true) {
+    if (curr) {
+      stack.push(curr);
+      curr = curr.left;
+    } else if (!curr && stack.length > 0) {
+      curr = stack.pop();
+
+      if (curr.val === target) {
+        if (!predecessor) return null;
+        return predecessor.val;
+      }
+
+      predecessor = curr;
+      curr = curr.right;
+    } else {
+      break;
+    }
+  }
 }
 
 function deleteNodeBST(rootNode, target) {
   // Do a traversal to find the node. Keep track of the parent
+  let parentNode = getParentNode(rootNode, target);
 
   // Undefined if the target cannot be found
-
+  if (parentNode === undefined) return undefined;
   // Set target based on parent
+  let targetNode;
+  let isLeftChild = false;
+  if (!parentNode) {
+    targetNode = rootNode;
+  } else if (parentNode.left && parentNode.left.val === target) {
+    targetNode = parentNode.left;
+    isLeftChild = true;
+  } else if (parentNode.right && parentNode.right.val === target) {
+    targetNode = parentNode.right;
+  } else {
+    throw Error('Wrong')
+  }
 
   // Case 0: Zero children and no parent:
   //   return null
-
-  // Case 1: Zero children:
-  //   Set the parent that points to it to null
-
-  // Case 2: Two children:
-  //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side,
-  //  or the right most child on its left side.
-  //  Then delete the child that it was replaced with.
-
-  // Case 3: One child:
-  //   Make the parent point to the child
-
+  if (!parentNode && !targetNode.left && !targetNode.right) {
+    return null;
+  } else if (!targetNode.left && !targetNode.right) {
+    // Case 1: Zero children:
+    //   Set the parent that points to it to null
+    if (isLeftChild) parentNode.left = null;
+    else parentNode.right = null;
+  } else if (targetNode.left && targetNode.right) {
+    // Case 2: Two children:
+    //  Set the value to its in-order predecessor, then delete the predecessor
+    //  Replace target node with the left most child on its right side,
+    //  or the right most child on its left side.
+    //  Then delete the child that it was replaced with.
+    let predecessor = inOrderPredecessor(rootNode, target);
+    deleteNodeBST(rootNode, predecessor);
+    targetNode.val = predecessor;
+  } else {
+    // Case 3: One child:
+    //   Make the parent point to the child
+    if (targetNode.left) {
+      if (isLeftChild) parentNode.left = targetNode.left;
+      else parentNode.right = targetNode.left;
+    } else {
+      if (isLeftChild) parentNode.left = targetNode.right;
+      else parentNode.right = targetNode.right;
+    }
+  }
 }
 
 module.exports = {
