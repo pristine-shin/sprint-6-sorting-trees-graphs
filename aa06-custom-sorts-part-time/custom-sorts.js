@@ -26,11 +26,33 @@ function validAnagrams(s, t) {
 }
 
 function reverseBaseSort(arr) {
-  // Your code here
+  return arr.sort((a, b) => {
+    // console.log(a, a.toString().length)
+    if (a.toString().length === b.toString().length) {
+      return a - b
+    }
+    return b - a
+  });
 }
 
 function frequencySort(arr) {
   // Your code here
+  const counts = {};
+
+  arr.forEach(num => {
+    if (counts[num]) {
+      counts[num]++;
+    } else {
+      counts[num] = 1;
+    }
+  });
+
+  return arr.sort((a, b) => {
+    if (counts[a] === counts[b]) {
+      return b - a;
+    }
+    return counts[a] - counts[b];
+  })
 }
 
 module.exports = [
