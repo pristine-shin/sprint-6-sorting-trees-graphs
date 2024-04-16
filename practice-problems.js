@@ -401,14 +401,14 @@ const adjList = {
 }
 
 function aShortestPath(start, end) {
-  const queue = [start];
+  const currentPath = [start]
   const visited = new Set([start]);
+  const queue = [currentPath];
 
   while (queue.length > 0) {
-    const current = queue.shift();
-    const currentPath = [current];
+    const [current] = queue.shift();
 
-    if (current === end) return currentPath;
+    if (current === end) return [current];
 
     for (let neighbor of adjList[current]) {
       if (!visited.has(neighbor)) {
