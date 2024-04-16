@@ -16,7 +16,22 @@ const adjList = {
 }
 
 function printDepthFirst(start) {
-  // Your code here 
+  // Your code here
+  const stack = [start];
+  const visitedNodes = new Set();
+
+  while (stack.length > 0) {
+      const current = stack.pop();
+
+      if (!visitedNodes.has(current)) {
+        visitedNodes.add(current);
+        console.log(current);
+
+      for (let neighbor of adjList[current]) {
+            stack.push(neighbor);
+            }
+      }
+  }
 }
 
 // console.log("First Test:")
