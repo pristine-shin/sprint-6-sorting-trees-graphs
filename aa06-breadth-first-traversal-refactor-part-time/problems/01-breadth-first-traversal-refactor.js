@@ -18,20 +18,23 @@ const adjList = {
 
 function breadthFirstTraversal(start) {
   // Your code here
+  let result = [];
   const queue = [start];
-  let visited = new Set([start]);
+  let visited = new Set();
 
   while (queue.length > 0) {
     const current = queue.shift();
-    console.log(current);
 
-    for (let neighbor of adjList[current]) {
-      if (!visited.has(neighbor)) {
-          visited.add(neighbor);
-          queue.push(neighbor);
+    if (!visited.has(current)) {
+      visited.add(current);
+      result.push(current);
+
+      for (let neighbor of adjList[current]) {
+        queue.push(neighbor);
       }
     }
   }
+  return result;
 }
 
 // console.log(breadthFirstTraversal(3)); // [3, 2, 4, 1, 5, 6]
