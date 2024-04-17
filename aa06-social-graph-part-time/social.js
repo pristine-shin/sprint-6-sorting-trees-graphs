@@ -8,27 +8,32 @@ class SocialNetwork {
   }
 
   addUser(name) {
-    // Your code here 
+    // Your code here
+    let userID = 1;
+    const newUser = {'id': userID, 'name': name};
+    this.users.userID = newUser;
+    const following = new Set();
+    return userID;
   }
 
   getUser(userID) {
-    // Your code here 
+    // Your code here
   }
 
   follow(userID1, userID2) {
-    // Your code here 
+    // Your code here
   }
 
   getFollows(userID) {
-    // Your code here 
+    // Your code here
   }
 
   getFollowers(userID) {
-    // Your code here 
+    // Your code here
   }
 
   getRecommendedFollows(userID, degrees) {
-    // Your code here 
+    // Your code here
   }
 }
 

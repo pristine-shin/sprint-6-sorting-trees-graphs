@@ -319,110 +319,152 @@ array at the end.*/
 
 /******************************************************************************/
 //SHORTEST PATH!!!! This one (alvin's example) returns the length (number of edges) of the shortest path.
-const shortestPath = (edges, nodeA, nodeB) => {
-  const graph = buildGraph(edges);
-  const visited = new Set([nodeA]);
-  const queue = [[nodeA, 0]];
+// const shortestPath = (edges, nodeA, nodeB) => {
+//   const graph = buildGraph(edges);
+//   const visited = new Set([nodeA]);
+//   const queue = [[nodeA, 0]];
 
-  while (queue.length > 0) {
-    const [node, distance] = queue.shift();
+//   while (queue.length > 0) {
+//     const [node, distance] = queue.shift();
 
-    if (node === nodeB) return distance;
+//     if (node === nodeB) return distance;
 
-    for (let neighbor of graph[node]) {
-      if (!visited.has(neighbor)) {
-        visited.add(neighbor);
-        queue.push([neighbor, distance + 1]);
-      }
-    }
-  }
+//     for (let neighbor of graph[node]) {
+//       if (!visited.has(neighbor)) {
+//         visited.add(neighbor);
+//         queue.push([neighbor, distance + 1]);
+//       }
+//     }
+//   }
 
-  return -1;
-};
+//   return -1;
+// };
 
-const buildGraph = (edges) => {
-  const graph = {};
+// const buildGraph = (edges) => {
+//   const graph = {};
 
-  for (let edge of edges) {
-    const [a, b] = edge;
-    if (!(a in graph)) graph[a] = [];
-    if (!(b in graph)) graph[b] = [];
-    graph[a].push(b);
-    graph[b].push(a);
-  }
-  return graph;
-};
+//   for (let edge of edges) {
+//     const [a, b] = edge;
+//     if (!(a in graph)) graph[a] = [];
+//     if (!(b in graph)) graph[b] = [];
+//     graph[a].push(b);
+//     graph[b].push(a);
+//   }
+//   return graph;
+// };
 
-const edges1 = [
-  ['a', 'c'],
-  ['a', 'b'],
-  ['c', 'b'],
-  ['c', 'd'],
-  ['b', 'd'],
-  ['e', 'd'],
-  ['g', 'f']
-];
+// const edges1 = [
+//   ['a', 'c'],
+//   ['a', 'b'],
+//   ['c', 'b'],
+//   ['c', 'd'],
+//   ['b', 'd'],
+//   ['e', 'd'],
+//   ['g', 'f']
+// ];
 
-console.log(shortestPath(edges1, 'a', 'e')); // -> 3
+// console.log(shortestPath(edges1, 'a', 'e')); // -> 3
 
-const edges2 = [
-  ['m', 'n'],
-  ['n', 'o'],
-  ['o', 'p'],
-  ['p', 'q'],
-  ['t', 'o'],
-  ['r', 'q'],
-  ['r', 's']
-];
+// const edges2 = [
+//   ['m', 'n'],
+//   ['n', 'o'],
+//   ['o', 'p'],
+//   ['p', 'q'],
+//   ['t', 'o'],
+//   ['r', 'q'],
+//   ['r', 's']
+// ];
 
-console.log(shortestPath(edges2, 'm', 's')); // -> 6
+// console.log(shortestPath(edges2, 'm', 's')); // -> 6
 
-const edges3 = [
-  ['a', 'c'],
-  ['a', 'b'],
-  ['c', 'b'],
-  ['c', 'd'],
-  ['b', 'd'],
-  ['e', 'd'],
-  ['g', 'f']
-];
+// const edges3 = [
+//   ['a', 'c'],
+//   ['a', 'b'],
+//   ['c', 'b'],
+//   ['c', 'd'],
+//   ['b', 'd'],
+//   ['e', 'd'],
+//   ['g', 'f']
+// ];
 
-console.log(shortestPath(edges3, 'b', 'g')); // -> -1
+// console.log(shortestPath(edges3, 'b', 'g')); // -> -1
+// /******************************************************************************/
+// //SHORTEST PATH a/A example where it prints/returns the shortest path, instead of the length of the shortest path like the previous example:
+
+// const adjList = {
+//   1: [2, 5],
+//   2: [1, 3, 5],
+//   3: [2, 4],
+//   4: [3, 5],
+//   5: [1, 2, 4],
+//   6: []
+// }
+
+// function aShortestPath(start, end) {
+//   const currentPath = [start]
+//   const visited = new Set([start]);
+//   const queue = [currentPath];
+
+//   while (queue.length > 0) {
+//     const [current] = queue.shift();
+
+//     if (current === end) return [current];
+
+//     for (let neighbor of adjList[current]) {
+//       if (!visited.has(neighbor)) {
+//         visited.add(neighbor);
+//         queue.push([neighbor]);
+//       }
+//     }
+//   }
+//   return false;
+//   }
+
+// console.log("First Test:");
+// console.log(aShortestPath(1, 3)); // -> [ 1, 2, 3 ] (One possible solution)
+// console.log("Second Test:");
+// console.log(aShortestPath(4, 1)); // -> [ 4, 5, 1 ] (One possible solution)
+// console.log("Third Test:");
+// console.log(aShortestPath(6, 1)); // -> false
+
 /******************************************************************************/
-//SHORTEST PATH a/A example where it prints/returns the shortest path, instead of the length of the shortest path like the previous example:
+const matrix = [
+  [ 0, 1, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1 ],
+  [ 1, 1, 0, 1, 1 ],
+  [ 0, 1, 1, 0, 0 ],
+  [ 0, 0, 0, 0, 0 ]
+];
 
-const adjList = {
-  1: [2, 5],
-  2: [1, 3, 5],
-  3: [2, 4],
-  4: [3, 5],
-  5: [1, 2, 4],
-  6: []
+function getNeighbors(node, matrix) {
+  // Create an array to hold the valid neighbors
+  let neighbors = [];
+
+  // UP:
+      // Identify the node above the current node, if it exists
+      const upNeighbor = 
+      // Push that node into the new array
+
+  // DOWN:
+      // Identify the node below the current node, if it exists
+      // Push that node into the new array
+
+  // LEFT:
+      // Identify the node to the left of the current node, if it exists
+      // Push that node into the new array
+
+  // RIGHT:
+      // Identify the node to the right of the current node, if it exists
+      // Push that node into the new array
+
+  // Return the neighbors array
 }
 
-function aShortestPath(start, end) {
-  const currentPath = [start]
-  const visited = new Set([start]);
-  const queue = [currentPath];
+// returns the correct neighbors from an internal node
+getNeighbors([2,2], matrix) // returns [ [1,2], [3,2], [2,1], [2,3] ]
 
-  while (queue.length > 0) {
-    const [current] = queue.shift();
+// returns the correct neighbors from a corner node
+getNeighbors([0,0], matrix) // returns [ [1,0], [0,1] ]
 
-    if (current === end) return [current];
-
-    for (let neighbor of adjList[current]) {
-      if (!visited.has(neighbor)) {
-        visited.add(neighbor);
-        queue.push([neighbor]);
-      }
-    }
-  }
-  return false;
-  }
-
-console.log("First Test:");
-console.log(aShortestPath(1, 3)); // -> [ 1, 2, 3 ] (One possible solution)
-console.log("Second Test:");
-console.log(aShortestPath(4, 1)); // -> [ 4, 5, 1 ] (One possible solution)
-console.log("Third Test:");
-console.log(aShortestPath(6, 1)); // -> false
+// returns the correct neighbors from an edge node
+getNeighbors([2,0], matrix) // returns [ [1,0], [3,0], [2,1] ]
