@@ -20,12 +20,12 @@
 // console.log([0, 1] === [0, 1]);
 
 // --- Example 2: Adding string coordinates to a Set ---
-// let visited2 = new Set();
+let visited2 = new Set();
 
-// visited2.add(`0,1`);
-// console.log(visited2);
+visited2.add(`0,1`);
+console.log(visited2);
 
-// visited2.add(`0,1`);
-// console.log(visited2);
+visited2.add(`0,1`);
+console.log(visited2);
 
-// console.log(`0,1` === `0,1`);
+console.log(`0,1` === `0,1`);
