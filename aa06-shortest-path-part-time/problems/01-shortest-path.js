@@ -50,6 +50,18 @@ function shortestPath(start, end) {
   return null;
 }
 
+//Alex's solution:
+// function shortestPath(start, end) {
+//   const queue = [[start, [start]]];
+//   while(queue.length) {
+//     const [node, currentPath] = queue.shift();
+//     if (node === end) return currentPath;
+//     for (let neighbor of adjList[node]) {
+//       queue.push([neighbor, [...currentPath, neighbor]])
+//     }
+//   }
+//   return null;
+// }
 // console.log(shortestPath(1, 3)); // -> [ 1, 2, 3 ] (One possible solution)
 // console.log(shortestPath(4, 1)); // -> [ 4, 5, 1 ] (One possible solution)
 // console.log(shortestPath(6, 1)); // -> null
