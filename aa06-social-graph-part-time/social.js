@@ -1,3 +1,5 @@
+const { use } = require("chai");
+
 // Implement the SocialNetwork class here
 class SocialNetwork {
 
@@ -48,29 +50,37 @@ class SocialNetwork {
 
   getFollowers(userID) {
     // Your code here
+    const followers = new Set();
+    for (let [key, value] of Object.entries(this.follows)) {
+      if (value.has(userID)) {
+        followers.add(Number(key));
+      }
+    }
+    return followers;
   }
 
-  getRecommendedFollows(userID, degrees) {
+ getRecommendedFollows(userID, degrees) {
     // Your code here
+    const stack = [[userID, 0]];
+    const visited = new Set([userID]);
+    const recommended = [];
+
+    while (stack.length) {
+      const [node, distance] = stack.pop();
+
+      for (let neighbor of this.follows[node]) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          stack.push([neighbor, distance + 1])
+        }
+        if (!this.follows[userID].has(neighbor)) {
+          recommended.push(neighbor);
+        }
+      }
+      if (distance === degrees) return recommended;
+    }
+    return null;
   }
 }
-
-let socialNetwork = new SocialNetwork();
-
-userID1 = socialNetwork.addUser('John Doe');
-userID2 = socialNetwork.addUser('Jane Doe');
-
-console.log(socialNetwork.users);
-
-console.log(userID1); // 1
-console.log(userID2); // 2
-
-user1 = socialNetwork.getUser(1);
-user2 = socialNetwork.getUser(2);
-user3 = socialNetwork.getUser(3);
-
-console.log(user1); // 'John Doe'
-console.log(user2); // 'Jane Doe'
-console.log(user3);      // null
 
 module.exports = SocialNetwork;
