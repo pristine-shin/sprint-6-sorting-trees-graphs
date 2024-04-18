@@ -444,7 +444,7 @@ function getNeighbors(node, matrix) {
 
   // UP:
       // Identify the node above the current node, if it exists
-      if (nodeRow - 1) {
+      if (nodeRow - 1 && nodeRow -1 >= 0) {
         const upNeighbor = [nodeRow - 1, nodeColumn];
         // Push that node into the new array
         neighbors.push(upNeighbor);
@@ -452,7 +452,7 @@ function getNeighbors(node, matrix) {
 
   // DOWN:
       // Identify the node below the current node, if it exists
-      if (nodeRow + 1) {
+      if (nodeRow + 1 && nodeRow + 1 < matrix.length) {
         const downNeighbor = [nodeRow + 1, nodeColumn];
         // Push that node into the new array
         neighbors.push(downNeighbor);
@@ -460,7 +460,7 @@ function getNeighbors(node, matrix) {
 
   // LEFT:
       // Identify the node to the left of the current node, if it exists
-      if (nodeColumn - 1) {
+      if (nodeColumn - 1 && nodeColumn - 1 >= 0) {
         const leftNeighbor = [nodeRow, nodeColumn - 1];
         // Push that node into the new array
         neighbors.push(leftNeighbor);
@@ -468,7 +468,7 @@ function getNeighbors(node, matrix) {
 
   // RIGHT:
       // Identify the node to the right of the current node, if it exists
-      if (nodeColumn + 1) {
+      if (nodeColumn + 1 && nodeColumn + 1 < matrix[nodeRow].length) {
         const rightNeighbor = [nodeRow, nodeColumn + 1];
         // Push that node into the new array
         neighbors.push(rightNeighbor);
