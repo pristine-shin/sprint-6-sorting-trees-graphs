@@ -46,13 +46,77 @@ function findStarts(matrix) {
 }
 
 function findNeighbors(node, matrix) {
-    // Don't forget to include diagonal neighbors!!!
+    let neighbors = [];
+    let [row, col] = node;
+    //up
+    if (row - 1 >= 0) {
+        let upNeighbor = [row - 1, col];
+        if (Math.abs((matrix[row][col]) - (matrix[row - 1][col])) <= 1) {
+            neighbors.push(upNeighbor);
+        }
+    }
+    //down
+    if (row + 1 < matrix.length) {
+        let downNeighbor = [row + 1, col];
+        if (Math.abs((matrix[row][col]) - (matrix[row + 1][col])) <= 1) {
+            neighbors.push(downNeighbor);
+        }
+    }
 
-    // Your code here 
+    //left
+    if (col - 1 >= 0) {
+        let leftNeighbor = [row, col - 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row][col - 1])) <= 1) {
+            neighbors.push(leftNeighbor);
+        }
+    }
+
+    //right
+    if (col + 1 < matrix[row].length) {
+        let rightNeighbor = [row, col + 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row][col + 1])) <= 1) {
+            neighbors.push(rightNeighbor);
+        }
+    }
+
+    // Don't forget to include diagonal neighbors!!!
+    //diagonal up/left
+    if (row - 1 >= 0 && col - 1 >= 0) {
+        let diagonalUpLeft = [row - 1, col - 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row - 1][col - 1])) <= 1) {
+            neighbors.push(diagonalUpLeft);
+        }
+    }
+
+    //diagonal up/right
+    if (row - 1 >= 0 && col + 1 < matrix[row].length) {
+        let diagonalUpRight = [row - 1, col + 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row - 1][col + 1])) <= 1) {
+            neighbors.push(diagonalUpRight);
+        }
+    }
+
+    //diagonal down/left
+    if (row + 1 >= 0 && col - 1 >= 0) {
+        let diagonalDownLeft = [row + 1, col - 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row + 1][col - 1])) <= 1) {
+            neighbors.push(diagonalDownLeft);
+        }
+    }
+
+    //diagonal down/right
+    if (row + 1 < matrix.length && col + 1 < matrix[row].length) {
+        let diagonalDownRight = [row + 1, col + 1];
+        if (Math.abs((matrix[row][col]) - (matrix[row + 1][col + 1])) <= 1) {
+            neighbors.push(diagonalDownRight);
+        }
+    }
+
+    return neighbors;
 }
 
 function pathTraversal(node, matrix, visited, peak) {
-    // Your code here 
+    // Your code here
 }
 
 function identifyPath(mountain) {
@@ -60,12 +124,12 @@ function identifyPath(mountain) {
     // Find the start
 
     // Traverse from the starts and try to get to the top
-    // Your code here 
+    // Your code here
 }
 
 // Uncomment for local testing
 
-// // Example 0
+// Example 0
 // const mountain_0 = [
 //     [1, 2, 4],
 //     [4, 5, 9],
@@ -74,7 +138,7 @@ function identifyPath(mountain) {
 
 // console.log(findNeighbors([2,0], mountain_0)) // <- Expect '[ [ 1, 0 ], [ 1, 1 ] ]'
 
-// // Example 1
+// Example 1
 // const mountain_1 = [
 //         [1, 0, 1, 1],
 //         [2, 3, 2, 1],
