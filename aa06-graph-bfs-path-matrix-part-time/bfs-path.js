@@ -50,7 +50,7 @@ function bfsPath(matrix, startNode, endValue) {
         for (let neighbor of neighbors) {
             let neighborStr = `${neighbor[0]},${neighbor[1]}`;
 
-            if (!visited.has(neighborStr)); {
+            if (!visited.has(neighborStr)) {
                 visited.add(neighborStr);
 
                 queue.push(neighbor);
