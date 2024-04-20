@@ -118,21 +118,19 @@ function findNeighbors(node, matrix) {
 function pathTraversal(node, matrix, visited, peak) {
     // Your code here
     const queue = [node];
-    visited.add(`${node[0]}, ${node[1]}`);
+    // visited.add(`${node[0]}, ${node[1]}`);
 
     while (queue.length) {
         const current = queue.shift();
 
         if (matrix[current[0]][current[1]] === peak) return true;
 
-        let neighbors = findNeighbors(current, matrix);
-        console.log(neighbors);
+        if (!visited.has(`${current[0]}, ${current[1]}`)) {
+            visited.add(`${current[0]}, ${current[1]}`);
 
-        for (let neighbor of neighbors) {
-            let neighborStr = `${neighbor[0]}, ${neighbor[1]}`
+            let neighbors = findNeighbors(current, matrix);
 
-            if (!visited.has(neighborStr)) {
-                visited.add(neighborStr);
+            for (let neighbor of neighbors) {
                 queue.push(neighbor);
             }
         }
@@ -151,35 +149,25 @@ function identifyPath(mountain) {
 // Uncomment for local testing
 
 // Example 0
-const mountain_0 = [
-    [1, 2, 4],
-    [4, 5, 9],
-    [5, 7, 6]
-];
+// const mountain_0 = [
+//     [1, 2, 4],
+//     [4, 5, 9],
+//     [5, 7, 6]
+// ];
 
-console.log(findNeighbors([2,0], mountain_0)) // <- Expect '[ [ 1, 0 ], [ 1, 1 ] ]'
+// console.log(findNeighbors([2,0], mountain_0)) // <- Expect '[ [ 1, 0 ], [ 1, 1 ] ]'
 
-// Example 1
-const mountain_1 = [
-        [1, 0, 1, 1],
-        [2, 3, 2, 1],
-        [0, 2, 4, 1],
-        [3, 2, 3, 1]
-];
+// // Example 1
+// const mountain_1 = [
+//         [1, 0, 1, 1],
+//         [2, 3, 2, 1],
+//         [0, 2, 4, 1],
+//         [3, 2, 3, 1]
+// ];
 
-const mountain_2 = [
-    [7, 8, 9, 1, 1],
-    [1, 6, 5, 2, 8],
-    [0, 1, 5, 1, 3],
-    [1, 4, 3, 4, 0]
-  ];
-
-test_visited = new Set()
-console.log(pathTraversal([0, 1], mountain_1, test_visited, 4)) // <- Expect 'true
-console.log(pathTraversal([2, 0], mountain_1, test_visited, 4)) // <- Expect 'false
-
-test_visited2 = new Set()
-console.log(pathTraversal([3, 4], mountain_2, test_visited2, 9)) // <- Expect 'true
+// test_visited = new Set()
+// console.log(pathTraversal([0, 1], mountain_1, test_visited, 4)) // <- Expect 'true
+// console.log(pathTraversal([2, 0], mountain_1, test_visited, 4)) // <- Expect 'false
 
 // console.log(identifyPath(mountain_1)) // <- Expect '[ 0, 1 ]'
 
