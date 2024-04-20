@@ -30,7 +30,7 @@ function findMaxEachLevel(root) {
   root.level = 0;
 
   while (stack.length > 0) {
-      const curr = stack.pop();
+      const curr = stack.shift();
 
       if (maxes[curr.level]) {
           maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);
@@ -40,7 +40,7 @@ function findMaxEachLevel(root) {
 
       if (curr.left) {
           curr.left.level = curr.level + 1;
-          stack.push(curr.left);
+          stack.unshift(curr.left);
       }
       if (curr.right) {
           curr.right.level = curr.level + 1;
