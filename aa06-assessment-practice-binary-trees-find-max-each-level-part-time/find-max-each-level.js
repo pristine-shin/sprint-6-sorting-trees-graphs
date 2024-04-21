@@ -23,6 +23,37 @@ class TreeNode {
 
 // Expected Output -> [ 5, 7, 3, 9, 4 ]
 
+//Attempt 2:
+function findMaxEachLevel(root) {
+  const stack = [root];//always initialize stack/queue with root node
+  const maxes = [];
+
+  root.level = 0;
+
+  while (stack.length > 0) {
+      const curr = stack.pop();
+
+      if (maxes[curr.level]) {
+          maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);
+      } else {
+          maxes.push(curr.value);
+      }
+
+      if (curr.left) { //take out && curr.left >= curr.right
+          curr.left.level = curr.level + 1;
+          stack.unshift(curr.left);
+      }
+      if (curr.right) { //take out  && curr.right >= curr.left
+          curr.right.level = curr.level + 1;
+          stack.unshift(curr.right);
+      }
+  }
+
+  return maxes;
+}
+
+
+//Attempt 1:
 // function findMaxEachLevel(root) {
 //   const stack = [root];
 //   const maxes = [];
@@ -52,37 +83,33 @@ class TreeNode {
 // }
 
 //Marlon's solution:
-function findMaxEachLevel(root) {
-  const stack = [root];
-  const maxes = [];
+// function findMaxEachLevel(root) {
+//   const stack = [root];
+//   const maxes = [];
 
-  root.level = 0;
+//   root.level = 0;
 
-  while (stack.length > 0) {
-      const curr = stack.pop();
+//   while (stack.length > 0) {
+//       const curr = stack.pop();
 
-      if (maxes[curr.level]) {
-          maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);
-      } else {
-          maxes.push(curr.value);
-      }
+//       if (maxes[curr.level]) {
+//           maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);
+//       } else {
+//           maxes.push(curr.value);
+//       }
 
-      if (curr.left) {
-          curr.left.level = curr.level + 1;
-          stack.push(curr.left);
-      }
-      if (curr.right) {
-          curr.right.level = curr.level + 1;
-          stack.push(curr.right);
-      }
-  }
+//       if (curr.left) {
+//           curr.left.level = curr.level + 1;
+//           stack.push(curr.left);
+//       }
+//       if (curr.right) {
+//           curr.right.level = curr.level + 1;
+//           stack.push(curr.right);
+//       }
+//   }
 
-  return maxes;
-}
-
-
-
-
+//   return maxes;
+// }
 
 // Uncomment the code below for local testing.
 
