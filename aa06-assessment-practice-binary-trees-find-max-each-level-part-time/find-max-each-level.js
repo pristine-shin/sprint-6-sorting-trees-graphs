@@ -23,7 +23,36 @@ class TreeNode {
 
 // Expected Output -> [ 5, 7, 3, 9, 4 ]
 
-//Attempt 2:
+//Attempt 3:
+function findMaxEachLevel(root) {
+  const stack = [root];
+  const maxes = [];
+
+  root.level = 0;
+
+  while (stack.length > 0) {
+      const curr = stack.pop();
+
+      if (maxes[curr.level]) {
+          maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);
+      } else {
+          maxes.push(curr.value);
+      }
+
+      if (curr.left) {
+          curr.left.level = curr.level + 1;
+          stack.unshift(curr.left);
+      }
+      if (curr.right) {
+          curr.right.level = curr.level + 1;
+          stack.unshift(curr.right);
+      }
+  }
+
+  return maxes;
+}
+
+/*Attempt 2:
 function findMaxEachLevel(root) {
   const stack = [root];//always initialize stack/queue with root node
   const maxes = [];
@@ -50,7 +79,7 @@ function findMaxEachLevel(root) {
   }
 
   return maxes;
-}
+}*/
 
 
 //Attempt 1:

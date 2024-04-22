@@ -1,3 +1,5 @@
+const { find } = require("../aa06-graph-problems-part-time/island");
+
 function findPeak(matrix) {
     let highest = 0;
     for (let i = 0; i < matrix.length; i++) {
@@ -45,7 +47,111 @@ function findStarts(matrix) {
     return starts;
 }
 
-//Attempt 2:
+//Attempt 3:
+function findNeighbors(node, matrix) {
+    let neighbors = [];
+    let [row, col] = node;
+
+    //north
+    if (row - 1 >= 0) {
+        let north = [row - 1, col];
+        if (Math.abs(matrix[row - 1][col] - matrix[row][col]) <= 1) {
+            neighbors.push(north);
+        }
+    }
+    //south
+    if (row + 1 < matrix.length) {
+        let south = [row + 1, col];
+        if (Math.abs(matrix[row + 1][col] - matrix[row][col]) <= 1) {
+            neighbors.push(south);
+        }
+    }
+    //east
+    if (col - 1 >= 0) {
+        let east = [row, col - 1];
+        if (Math.abs(matrix[row][col - 1] - matrix[row][col]) <= 1) {
+            neighbors.push(east);
+        }
+    }
+    //west
+    if (col + 1 < matrix[row].length) {
+        let west = [row, col + 1];
+        if (Math.abs(matrix[row][col + 1] - matrix[row][col]) <= 1) {
+            neighbors.push(west);
+        }
+    }
+
+    // Don't forget to include diagonal neighbors!!!
+    //NE
+    if (row - 1 >= 0 && col - 1 >= 0) {
+        let NE = [row - 1, col - 1];
+        if (Math.abs(matrix[row - 1][col - 1] - matrix[row][col]) <= 1) {
+            neighbors.push(NE);
+        }
+    }
+    //NW
+    if (row - 1 >= 0 && col + 1 < matrix[row].length) {
+        let NW = [row - 1, col + 1];
+        if (Math.abs(matrix[row - 1][col + 1] - matrix[row][col]) <= 1) {
+            neighbors.push(NW);
+        }
+    }
+    //SE
+    if (row + 1 < matrix.length && col - 1 >= 0) {
+        let SE = [row + 1, col - 1];
+        if (Math.abs(matrix[row + 1][col - 1] - matrix[row][col]) <= 1) {
+            neighbors.push(SE);
+        }
+    }
+    //SW
+    if (row + 1 < matrix.length && col + 1 < matrix[row].length) {
+        let SW = [row + 1, col + 1];
+        if (Math.abs(matrix[row + 1][col + 1] - matrix[row][col]) <= 1) {
+            neighbors.push(SW);
+        }
+    }
+    return neighbors;
+}
+
+function pathTraversal(node, matrix, visited, peak) {
+    let queue = [node];
+    visited.add(`${node[0]},${node[1]}`);
+
+    while (queue.length) {
+        let curr = queue.shift();
+
+        if (matrix[curr[0]][curr[1]] === peak) return true;
+
+        let neighbors = findNeighbors(curr, matrix);
+
+        for (let neighbor of neighbors) {
+            let neighborStr = `${neighbor[0]},${neighbor[1]}`
+
+            if (!visited.has(neighborStr)) {
+                visited.add(neighborStr)
+                queue.push(neighbor)
+              }
+        }
+    }
+    return false;
+}
+
+function identifyPath(mountain) {
+    // Find the peak
+    let peak = findPeak(mountain);
+    // Find the start
+    let starts = findStarts(mountain);
+    let visited = new Set();
+
+    // Traverse from the starts and try to get to the top
+    for (let start of starts) {
+        if (pathTraversal(start, mountain, visited, peak)) {
+            return start;
+        }
+    }
+}
+
+/*Attempt 2:
 function findNeighbors(node, matrix) {
     let neighbors = [];
     let [row, col] = node;
@@ -145,7 +251,7 @@ function identifyPath(mountain) {
     for (let start of starts) {
         if (pathTraversal(start, mountain, visited, peak)) return start;
     }
-}
+}*/
 
 /* Attempt 1:
 function findNeighbors(node, matrix) {
